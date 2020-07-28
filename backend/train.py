@@ -6,7 +6,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
+from sklearn.svm import LinearSVC
 import joblib
 
 def train():
@@ -14,7 +14,7 @@ def train():
   X = dataset.images
   y = dataset.target
   X = X.reshape((-1, 64))
-  clf = SVC()
+  clf = LinearSVC()
   clf.fit(X, y)
   joblib.dump(clf, 'digits.pkl')
 

@@ -1,12 +1,12 @@
 <template>
 <v-row class="justify-space-around">
-  <div style="margin: 0 auto">
+  <div style="margin: 1em auto">
     <div ref="container">
       <canvas
         :width="width"
         :height="height"
         ref="canvas"
-        style="background-color:white;">
+        style="background-color:white; padding:5px">
       </canvas>
     </div>
     <v-row class="my-2 justify-space-around">
@@ -81,7 +81,8 @@ export default {
     this.drawingScope = new Konva.Image({
       image: this.canvas,
       x: 0,
-      y: 0
+      y: 0,
+      stroke: 'black'
     })
     this.drawingLayer.add(this.drawingScope)
     this.stage.draw()
@@ -89,7 +90,7 @@ export default {
     this.context = this.canvas.getContext('2d')
     this.context.strokeStyle = this.brushColor
     this.context.lineJoin = 'round'
-    this.context.lineWidth = 30
+    this.context.lineWidth = 15
 
     // イベント追加
     this.drawingScope.on('mousedown', this.mousedown)
