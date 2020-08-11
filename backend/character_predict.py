@@ -5,6 +5,7 @@ import joblib
 
 def predict(image):
   clf = joblib.load('digits.pkl')
+  print(image)
   header, encoded = image.split(',', 1)
   img_bin = base64.b64decode(encoded)
   img = np.frombuffer(img_bin, dtype=np.uint8)

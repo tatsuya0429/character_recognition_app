@@ -1,12 +1,12 @@
 <template>
 <v-row class="justify-space-around">
-  <div style="margin: 0 auto">
+  <div style="margin: 1em auto">
     <div ref="container">
       <canvas
         :width="width"
         :height="height"
         ref="canvas"
-        style="background-color:white;">
+        style="background-color:white; padding:5px">
       </canvas>
     </div>
     <v-row class="my-2 justify-space-around">
@@ -25,16 +25,6 @@ import axios from 'axios';
 export default {
   name: 'FreeDrawing',
   // propsは親の「CallCanvas.vue」から値を受け取るためのプロパティ
-  props: {
-    mode: {
-      type: String,
-      default: ''
-    },
-    brushColor: {
-      type: String,
-      default: ''
-    }
-  },
   data: function(){
     return {
       answer: null,
@@ -81,15 +71,16 @@ export default {
     this.drawingScope = new Konva.Image({
       image: this.canvas,
       x: 0,
-      y: 0
+      y: 0,
+      stroke: 'black'
     })
     this.drawingLayer.add(this.drawingScope)
     this.stage.draw()
 
     this.context = this.canvas.getContext('2d')
-    this.context.strokeStyle = this.brushColor
+    this.context.strokeStyle = ''
     this.context.lineJoin = 'round'
-    this.context.lineWidth = 30
+    this.context.lineWidth = 15
 
     // イベント追加
     this.drawingScope.on('mousedown', this.mousedown)
@@ -113,14 +104,7 @@ export default {
       if (!this.isPaint) {
         return;
       }
-      // ペンモード時
-      if (this.isTargetMode('brush') || this.isTargetMode('line')) {
-        this.context.globalCompositeOperation = 'source-over';
-      }
-      // 消しゴムモード時
-      if (this.isTargetMode('eraser')) {
-        this.context.globalCompositeOperation = 'destination-out';
-      }
+      this.context.globalCompositeOperation = 'source-over';
 
       this.context.beginPath()
 
@@ -147,7 +131,7 @@ export default {
       this.context.fillRect(0, 0, this.width, this.height)
       this.drawingLayer.draw()
 
-      this.$emit('on-reset')
+      
     },
     // 現在のモードが指定されたモードと一致するかどうか
     isTargetMode: function (targetMode) {

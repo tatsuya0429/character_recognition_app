@@ -60,6 +60,7 @@ frontendでは
 ```
 cd frontend
 npm install
+yarn build
 ```
 
 backendでは、pipenvが必要なのでpipenvをインストールしてください。
