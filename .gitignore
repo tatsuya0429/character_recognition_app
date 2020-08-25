@@ -1,4 +1,4 @@
-node_module
+node_modules
 *.ipynb
 package-lock.json
 backend/Pipfile.lock
